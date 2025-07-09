@@ -15,7 +15,7 @@ spec:
       initContainers:
       - name: app-migrations
         image: martinpham/php:lab_app
-        command: [ "/bin/bash", "-c" ]
+        command: [ "/bin/sh", "-c" ]
         args:
         - 
           php artisan migrate --force
