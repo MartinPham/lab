@@ -17,7 +17,7 @@ spec:
         image: martinpham/php:lab_app
         command: [ "/bin/sh", "-c" ]
         args:
-        - 
+        - |
           php artisan migrate --force
           mkdir -p storage/api-docs
           mkdir -p storage/app/private
