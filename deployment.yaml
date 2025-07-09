@@ -15,7 +15,18 @@ spec:
       initContainers:
       - name: app-migrations
         image: martinpham/php:lab_app
-        command: ['php', 'artisan', 'migrate', '--force']
+        command: [ "/bin/bash", "-c" ]
+        args:
+        - 
+          php artisan migrate --force
+          mkdir -p storage/api-docs
+          mkdir -p storage/app/private
+          mkdir -p storage/app/public
+          mkdir -p storage/framework/cache/data
+          mkdir -p storage/framework/sessions
+          mkdir -p storage/framework/testing
+          mkdir -p storage/framework/views
+          mkdir -p storage/logs
         env:
         - name: APP_KEY
           valueFrom:
