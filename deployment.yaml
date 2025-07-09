@@ -56,10 +56,10 @@ spec:
         - configMapRef:
             name: app-config
         volumeMounts:
-        - name: laravel-storage
+        - name: app-storage
           mountPath: /var/www/html/storage
       containers:
-      - name: laravel-app
+      - name: app
         image: martinpham/php:lab_app
         ports:
         - containerPort: 80
@@ -103,7 +103,7 @@ spec:
         - configMapRef:
             name: app-config
         volumeMounts:
-        - name: laravel-storage
+        - name: app-storage
           mountPath: /var/www/html/storage
         livenessProbe:
           httpGet:
@@ -125,6 +125,6 @@ spec:
             memory: "512Mi"
             cpu: "500m"
       volumes:
-      - name: laravel-storage
+      - name: app-storage
         persistentVolumeClaim:
-          claimName: laravel-storage
+          claimName: app-storage
