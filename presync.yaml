@@ -14,8 +14,9 @@ spec:
         command: [ "/bin/sh", "-c" ]
         args:
         - |
-          # php artisan down
+          php artisan down
           php artisan migrate --seed
+          php artisan up
         env:
         - name: APP_KEY
           valueFrom:
