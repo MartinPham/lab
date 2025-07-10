@@ -1,9 +1,9 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  generateName: app-presync
+  generateName: app-postsync
   annotations:
-    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/hook: PostSync
     argocd.argoproj.io/hook-delete-policy: HookSucceeded
 spec:
   template:
@@ -14,8 +14,7 @@ spec:
         command: [ "/bin/sh", "-c" ]
         args:
         - |
-          php artisan down
-          php artisan migrate --seed
+          php artisan up
         env:
         - name: APP_KEY
           valueFrom:

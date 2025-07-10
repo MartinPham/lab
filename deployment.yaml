@@ -118,13 +118,13 @@ spec:
           mountPath: /var/www/html/storage
         livenessProbe:
           httpGet:
-            path: /
+            path: /up
             port: 80
           initialDelaySeconds: 30
           periodSeconds: 10
         readinessProbe:
           httpGet:
-            path: /
+            path: /up
             port: 80
           initialDelaySeconds: 5
           periodSeconds: 5
