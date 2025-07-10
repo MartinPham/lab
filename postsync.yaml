@@ -57,5 +57,9 @@ spec:
         volumeMounts:
         - name: app-storage
           mountPath: /var/www/html/storage
+      volumes:
+      - name: app-storage
+        persistentVolumeClaim:
+          claimName: app-storage
       restartPolicy: Never
   backoffLimit: 2
