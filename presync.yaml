@@ -1,0 +1,62 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  generateName: app-presync
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+spec:
+  template:
+    spec:
+      containers:
+      - name: app
+        image: 559050244998.dkr.ecr.eu-west-1.amazonaws.com/3c-dev-mktp/marketpass-backoffice:local
+        command: [ "/bin/sh", "-c" ]
+        args:
+        - |
+          php artisan down
+          php artisan migrate --seed
+        env:
+        - name: APP_KEY
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: APP_KEY
+        - name: DB_CONNECTION
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: DB_CONNECTION
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: DB_HOST
+        - name: DB_PORT
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: DB_PORT
+        - name: DB_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: DB_DATABASE
+        - name: DB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: DB_USERNAME
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: DB_PASSWORD
+        envFrom:
+        - configMapRef:
+            name: app-config
+        volumeMounts:
+        - name: app-storage
+          mountPath: /var/www/html/storage
+      restartPolicy: Never
+  backoffLimit: 2

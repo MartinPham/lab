@@ -12,66 +12,66 @@ spec:
       labels:
         app: app
     spec:
-      initContainers:
-      - name: app-migrations
-        image: martinpham/php:lab_app
-        command: [ "/bin/sh", "-c" ]
-        args:
-        - |
-          php artisan migrate --force
-          mkdir -p storage/api-docs
-          mkdir -p storage/app/private
-          mkdir -p storage/app/public
-          mkdir -p storage/framework/cache/data
-          mkdir -p storage/framework/sessions
-          mkdir -p storage/framework/testing
-          mkdir -p storage/framework/views
-          mkdir -p storage/logs
-        env:
-        - name: APP_KEY
-          valueFrom:
-            secretKeyRef:
-              name: app-secrets
-              key: APP_KEY
-        - name: DB_CONNECTION
-          valueFrom:
-            secretKeyRef:
-              name: app-secrets
-              key: DB_CONNECTION
-        - name: DB_HOST
-          valueFrom:
-            secretKeyRef:
-              name: app-secrets
-              key: DB_HOST
-        - name: DB_PORT
-          valueFrom:
-            secretKeyRef:
-              name: app-secrets
-              key: DB_PORT
-        - name: DB_DATABASE
-          valueFrom:
-            secretKeyRef:
-              name: app-secrets
-              key: DB_DATABASE
-        - name: DB_USERNAME
-          valueFrom:
-            secretKeyRef:
-              name: app-secrets
-              key: DB_USERNAME
-        - name: DB_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: app-secrets
-              key: DB_PASSWORD
-        envFrom:
-        - configMapRef:
-            name: app-config
-        volumeMounts:
-        - name: app-storage
-          mountPath: /var/www/html/storage
+      # initContainers:
+      # - name: app-migrations
+      #   image: martinpham/php:lab_app
+      #   command: [ "/bin/sh", "-c" ]
+      #   args:
+      #   - |
+      #     php artisan migrate --force
+      #     mkdir -p storage/api-docs
+      #     mkdir -p storage/app/private
+      #     mkdir -p storage/app/public
+      #     mkdir -p storage/framework/cache/data
+      #     mkdir -p storage/framework/sessions
+      #     mkdir -p storage/framework/testing
+      #     mkdir -p storage/framework/views
+      #     mkdir -p storage/logs
+      #   env:
+      #   - name: APP_KEY
+      #     valueFrom:
+      #       secretKeyRef:
+      #         name: app-secrets
+      #         key: APP_KEY
+      #   - name: DB_CONNECTION
+      #     valueFrom:
+      #       secretKeyRef:
+      #         name: app-secrets
+      #         key: DB_CONNECTION
+      #   - name: DB_HOST
+      #     valueFrom:
+      #       secretKeyRef:
+      #         name: app-secrets
+      #         key: DB_HOST
+      #   - name: DB_PORT
+      #     valueFrom:
+      #       secretKeyRef:
+      #         name: app-secrets
+      #         key: DB_PORT
+      #   - name: DB_DATABASE
+      #     valueFrom:
+      #       secretKeyRef:
+      #         name: app-secrets
+      #         key: DB_DATABASE
+      #   - name: DB_USERNAME
+      #     valueFrom:
+      #       secretKeyRef:
+      #         name: app-secrets
+      #         key: DB_USERNAME
+      #   - name: DB_PASSWORD
+      #     valueFrom:
+      #       secretKeyRef:
+      #         name: app-secrets
+      #         key: DB_PASSWORD
+      #   envFrom:
+      #   - configMapRef:
+      #       name: app-config
+      #   volumeMounts:
+      #   - name: app-storage
+      #     mountPath: /var/www/html/storage
       containers:
       - name: app
-        image: martinpham/php:lab_app
+        image: 559050244998.dkr.ecr.eu-west-1.amazonaws.com/3c-dev-mktp/marketpass-backoffice:local
         ports:
         - containerPort: 80
         env:
